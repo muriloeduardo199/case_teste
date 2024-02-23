@@ -3,4 +3,5 @@
 *.vscode
 *desafio1.md
 *.pytest_cache
+*.gitignore
 
