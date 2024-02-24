@@ -34,22 +34,20 @@ def cadastrar_transacao(transacao: Transacao):
         HTTPException: se algum campo da transação for inválido ou faltar.
     """
     
-    if not (transacao.descricao and transacao.formatar_reais() and transacao.data and transacao.tipo_da_transacao):
+    if not (transacao.descricao and transacao.valor and transacao.data and transacao.tipo_da_transacao):
         raise HTTPException(status_code=400, detail="Todos os campos são obrigatórios")
     
     if transacao.tipo_da_transacao not in [TipoTransacao.ENTRADA, TipoTransacao.SAIDA]: # usando o valor do Enum na validação
         raise HTTPException(status_code=400, detail="O tipo da transação deve ser entrada ou saída")
-    
+    valor_formatado = transacao.formatar_reais(transacao.valor)
+    transacao.valor = valor_formatado
     transacoes.append(transacao.dict() )
 
     with open("transacoes.json", "w") as f:
         json.dump(transacoes, f)
-
-    valor_formatado = transacao.formatar_reais()
     print(transacao)
     
     return {"transacao": transacao, "valor_formatado": valor_formatado}
-
 
 @app.get("/", status_code=204)
 def listar_transacao():

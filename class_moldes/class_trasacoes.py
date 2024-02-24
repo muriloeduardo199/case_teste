@@ -12,8 +12,8 @@ class Transacao(BaseModel):
     data: str
     tipo_da_transacao: TipoTransacao
 
-    def formatar_reais(self) -> float:
-        # Converte os centavos em reais, usando ponto como separador decimal
+    def formatar_reais(self, valor: int) -> float:
+        """ Converte os centavos em reais, usando ponto como separador decimal"""
         reais = self.valor * 100
-        return f"R$ {reais:.2f}"
+        return reais
 
