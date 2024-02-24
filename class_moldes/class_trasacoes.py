@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from enuns.enuns import TipoTransacao
-
+from datetime import datetime
 
 
 
@@ -9,7 +9,7 @@ class Transacao(BaseModel):
     id: int
     valor: float
     descricao: str
-    data: str
+    data: str 
     tipo_da_transacao: TipoTransacao
 
     def formatar_reais(self, valor: int) -> float:
